@@ -4,13 +4,11 @@
 #include <stdlib.h>
 #include "MTi2.h"
  
-#define GRAVITYACCELERATION 9.81f
+#define GRAVITY 9.81f
 #define pi 3.14159265358979323846f
 MTi2Class IMU(1000000,PB_15,PB_14,PB_13,PC_4);//Create MTi2 Class (Frequency, MOSI, MISO, SCLK, CS)
 RawSerial pc(USBTX,USBRX);
 Ticker main_function; //interrupt
- 
-DigitalOut led1(LED1);
  
 bool button_state = false;
 float dt = 0.01; // sec
