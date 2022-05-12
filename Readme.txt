@@ -1,8 +1,12 @@
 Description:
+Code for STM32.
 MTi2.cpp and MTi2.h are code for SPI commnication with MTi-2-T imu sensor.
 It contains basic operations such as sending command, receive pipe status, configure pipe, etc.
 It also can read euler angle, acceleration, and anular velocity by ReadData() function.
 Reading other data can be done by changing code in ReadData() and setting MTi-2-T from MT Manager.
+
+Target Hardware:
+NUCLEO-F446RE
 
 Reference:
 MT Manager:https://www.xsens.com/software-downloads
