@@ -20,8 +20,10 @@
  
 class MTi2Class{
     private:
+        //spi & cs pin
         DigitalOut cs_MTi;
         SPI spi_MTi;
+
         int len;
         int ctrl_len;
         uint16_t notificationSize;
@@ -29,19 +31,19 @@ class MTi2Class{
         uint8_t buffer[40];
         uint8_t ctrlBuf[20];
         uint8_t FW[4];
-
+        //union for data trnsformation
         typedef union{
             uint32_t data1;
             float data2;
         }imu_data;
-
+        
         imu_data eul[3];
         imu_data acc[3];
         imu_data gry[3];
 
     public:
         MTi2Class(int freq,PinName MISO,PinName MOSI,PinName SCLK,PinName CS);
-        ~MTi2Class();
+        
         void MTi2_Init();
         void SendOpcode(uint8_t Opcode);
         uint8_t ReadProtInfo();

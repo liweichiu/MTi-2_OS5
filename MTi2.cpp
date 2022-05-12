@@ -21,7 +21,7 @@ void MTi2Class::ControlPipe(){
         }
     cs_MTi = 1;
 }
-
+//Read mesaurement data
 void MTi2Class::MeasurementPipe(){
 //    printf("MeasurementPipe \r\n");
     cs_MTi = 0;
@@ -31,7 +31,6 @@ void MTi2Class::MeasurementPipe(){
     }
     cs_MTi = 1;
 }
-
 //Check pipestatus : measure size & nitification size
 void MTi2Class::PipeStatus(){
     len = 4;
@@ -56,7 +55,7 @@ void MTi2Class::SendOpcode(uint8_t Opcode)
         FW[i+1] = spi_MTi.write((int)i);
     }
 }
- 
+//Read protocol information
 uint8_t MTi2Class::ReadProtInfo(){
     len = 2;
     cs_MTi = 0;
@@ -70,7 +69,7 @@ uint8_t MTi2Class::ReadProtInfo(){
     }
     return buffer[1];
 }
- 
+//Configure protocol
 void MTi2Class::ConfigureProt(_Bool M,_Bool N,_Bool O,_Bool P)
 {
 //    printf("ConfigureProt \r\n");
@@ -81,7 +80,7 @@ void MTi2Class::ConfigureProt(_Bool M,_Bool N,_Bool O,_Bool P)
     cs_MTi = 1;
 
 }
-
+//Read notification
 void MTi2Class::NotificationPipe(){
     cs_MTi = 0;
     SendOpcode(NotiPipe);//send opcode
@@ -102,7 +101,9 @@ void MTi2Class::ReadData(){
             len1 = buffer[4];//data length
             data_bytes = len1/3;//3 dimension data
             for(int j=0;j<3;j++){
+                //Combine 8bit data to 32bit data
                 uint32_t temp = (buffer[5+j*data_bytes]<<24) | (buffer[6+j*data_bytes]<<16) | (buffer[7+j*data_bytes]<<8) | (buffer[8+j*data_bytes]);
+                //Use union to transform uint32_t to float
                 eul[j].data1 = temp;
                 euler[j] = eul[j].data2;
             }
